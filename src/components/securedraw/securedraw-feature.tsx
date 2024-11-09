@@ -4,17 +4,17 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletButton } from '../solana/solana-provider'
 import { AppHero, ellipsify } from '../ui/ui-layout'
 import { ExplorerLink } from '../cluster/cluster-ui'
-import { useTmpdrawProgram } from './tmpdraw-data-access'
-import { TmpdrawCreate, TmpdrawList } from './tmpdraw-ui'
+import { useSecuredrawProgram } from './securedraw-data-access'
+import { SecuredrawCreate, SecuredrawList } from './securedraw-ui'
 
-export default function TmpdrawFeature() {
+export default function SecuredrawFeature() {
   const { publicKey } = useWallet()
-  const { programId } = useTmpdrawProgram()
+  const { programId } = useSecuredrawProgram()
 
   return publicKey ? (
     <div>
       <AppHero
-        title="Tmpdraw"
+        title="Securedraw"
         subtitle={
           'Create a new account by clicking the "Create" button. The state of a account is stored on-chain and can be manipulated by calling the program\'s methods (increment, decrement, set, and close).'
         }
@@ -22,9 +22,9 @@ export default function TmpdrawFeature() {
         <p className="mb-6">
           <ExplorerLink path={`account/${programId}`} label={ellipsify(programId.toString())} />
         </p>
-        <TmpdrawCreate />
+        <SecuredrawCreate />
       </AppHero>
-      <TmpdrawList />
+      <SecuredrawList />
     </div>
   ) : (
     <div className="max-w-4xl mx-auto">

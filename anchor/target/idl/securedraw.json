@@ -1,7 +1,7 @@
 {
   "address": "AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ",
   "metadata": {
-    "name": "tmpdraw",
+    "name": "securedraw",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"
@@ -26,7 +26,7 @@
           "signer": true
         },
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -46,7 +46,7 @@
       ],
       "accounts": [
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -66,7 +66,7 @@
       ],
       "accounts": [
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -91,7 +91,7 @@
           "signer": true
         },
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true,
           "signer": true
         },
@@ -116,7 +116,7 @@
       ],
       "accounts": [
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -130,7 +130,7 @@
   ],
   "accounts": [
     {
-      "name": "Tmpdraw",
+      "name": "Securedraw",
       "discriminator": [
         255,
         176,
@@ -145,7 +145,7 @@
   ],
   "types": [
     {
-      "name": "Tmpdraw",
+      "name": "Securedraw",
       "type": {
         "kind": "struct",
         "fields": [

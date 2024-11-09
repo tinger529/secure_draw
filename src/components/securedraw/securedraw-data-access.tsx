@@ -1,6 +1,6 @@
 'use client'
 
-import {getTmpdrawProgram, getTmpdrawProgramId} from '@project/anchor'
+import {getSecuredrawProgram, getSecuredrawProgramId} from '@project/anchor'
 import {useConnection} from '@solana/wallet-adapter-react'
 import {Cluster, Keypair, PublicKey} from '@solana/web3.js'
 import {useMutation, useQuery} from '@tanstack/react-query'
@@ -10,17 +10,17 @@ import {useCluster} from '../cluster/cluster-data-access'
 import {useAnchorProvider} from '../solana/solana-provider'
 import {useTransactionToast} from '../ui/ui-layout'
 
-export function useTmpdrawProgram() {
+export function useSecuredrawProgram() {
   const { connection } = useConnection()
   const { cluster } = useCluster()
   const transactionToast = useTransactionToast()
   const provider = useAnchorProvider()
-  const programId = useMemo(() => getTmpdrawProgramId(cluster.network as Cluster), [cluster])
-  const program = getTmpdrawProgram(provider)
+  const programId = useMemo(() => getSecuredrawProgramId(cluster.network as Cluster), [cluster])
+  const program = getSecuredrawProgram(provider)
 
   const accounts = useQuery({
-    queryKey: ['tmpdraw', 'all', { cluster }],
-    queryFn: () => program.account.tmpdraw.all(),
+    queryKey: ['securedraw', 'all', { cluster }],
+    queryFn: () => program.account.securedraw.all(),
   })
 
   const getProgramAccount = useQuery({
@@ -29,9 +29,9 @@ export function useTmpdrawProgram() {
   })
 
   const initialize = useMutation({
-    mutationKey: ['tmpdraw', 'initialize', { cluster }],
+    mutationKey: ['securedraw', 'initialize', { cluster }],
     mutationFn: (keypair: Keypair) =>
-      program.methods.initialize().accounts({ tmpdraw: keypair.publicKey }).signers([keypair]).rpc(),
+      program.methods.initialize().accounts({ securedraw: keypair.publicKey }).signers([keypair]).rpc(),
     onSuccess: (signature) => {
       transactionToast(signature)
       return accounts.refetch()
@@ -48,19 +48,19 @@ export function useTmpdrawProgram() {
   }
 }
 
-export function useTmpdrawProgramAccount({ account }: { account: PublicKey }) {
+export function useSecuredrawProgramAccount({ account }: { account: PublicKey }) {
   const { cluster } = useCluster()
   const transactionToast = useTransactionToast()
-  const { program, accounts } = useTmpdrawProgram()
+  const { program, accounts } = useSecuredrawProgram()
 
   const accountQuery = useQuery({
-    queryKey: ['tmpdraw', 'fetch', { cluster, account }],
-    queryFn: () => program.account.tmpdraw.fetch(account),
+    queryKey: ['securedraw', 'fetch', { cluster, account }],
+    queryFn: () => program.account.securedraw.fetch(account),
   })
 
   const closeMutation = useMutation({
-    mutationKey: ['tmpdraw', 'close', { cluster, account }],
-    mutationFn: () => program.methods.close().accounts({ tmpdraw: account }).rpc(),
+    mutationKey: ['securedraw', 'close', { cluster, account }],
+    mutationFn: () => program.methods.close().accounts({ securedraw: account }).rpc(),
     onSuccess: (tx) => {
       transactionToast(tx)
       return accounts.refetch()
@@ -68,8 +68,8 @@ export function useTmpdrawProgramAccount({ account }: { account: PublicKey }) {
   })
 
   const decrementMutation = useMutation({
-    mutationKey: ['tmpdraw', 'decrement', { cluster, account }],
-    mutationFn: () => program.methods.decrement().accounts({ tmpdraw: account }).rpc(),
+    mutationKey: ['securedraw', 'decrement', { cluster, account }],
+    mutationFn: () => program.methods.decrement().accounts({ securedraw: account }).rpc(),
     onSuccess: (tx) => {
       transactionToast(tx)
       return accountQuery.refetch()
@@ -77,8 +77,8 @@ export function useTmpdrawProgramAccount({ account }: { account: PublicKey }) {
   })
 
   const incrementMutation = useMutation({
-    mutationKey: ['tmpdraw', 'increment', { cluster, account }],
-    mutationFn: () => program.methods.increment().accounts({ tmpdraw: account }).rpc(),
+    mutationKey: ['securedraw', 'increment', { cluster, account }],
+    mutationFn: () => program.methods.increment().accounts({ securedraw: account }).rpc(),
     onSuccess: (tx) => {
       transactionToast(tx)
       return accountQuery.refetch()
@@ -86,8 +86,8 @@ export function useTmpdrawProgramAccount({ account }: { account: PublicKey }) {
   })
 
   const setMutation = useMutation({
-    mutationKey: ['tmpdraw', 'set', { cluster, account }],
-    mutationFn: (value: number) => program.methods.set(value).accounts({ tmpdraw: account }).rpc(),
+    mutationKey: ['securedraw', 'set', { cluster, account }],
+    mutationFn: (value: number) => program.methods.set(value).accounts({ securedraw: account }).rpc(),
     onSuccess: (tx) => {
       transactionToast(tx)
       return accountQuery.refetch()

@@ -4,10 +4,10 @@ import { Keypair, PublicKey } from '@solana/web3.js'
 import { useMemo } from 'react'
 import { ellipsify } from '../ui/ui-layout'
 import { ExplorerLink } from '../cluster/cluster-ui'
-import { useTmpdrawProgram, useTmpdrawProgramAccount } from './tmpdraw-data-access'
+import { useSecuredrawProgram, useSecuredrawProgramAccount } from './securedraw-data-access'
 
-export function TmpdrawCreate() {
-  const { initialize } = useTmpdrawProgram()
+export function SecuredrawCreate() {
+  const { initialize } = useSecuredrawProgram()
 
   return (
     <button
@@ -20,8 +20,8 @@ export function TmpdrawCreate() {
   )
 }
 
-export function TmpdrawList() {
-  const { accounts, getProgramAccount } = useTmpdrawProgram()
+export function SecuredrawList() {
+  const { accounts, getProgramAccount } = useSecuredrawProgram()
 
   if (getProgramAccount.isLoading) {
     return <span className="loading loading-spinner loading-lg"></span>
@@ -40,7 +40,7 @@ export function TmpdrawList() {
       ) : accounts.data?.length ? (
         <div className="grid md:grid-cols-2 gap-4">
           {accounts.data?.map((account) => (
-            <TmpdrawCard key={account.publicKey.toString()} account={account.publicKey} />
+            <SecuredrawCard key={account.publicKey.toString()} account={account.publicKey} />
           ))}
         </div>
       ) : (
@@ -53,8 +53,8 @@ export function TmpdrawList() {
   )
 }
 
-function TmpdrawCard({ account }: { account: PublicKey }) {
-  const { accountQuery, incrementMutation, setMutation, decrementMutation, closeMutation } = useTmpdrawProgramAccount({
+function SecuredrawCard({ account }: { account: PublicKey }) {
+  const { accountQuery, incrementMutation, setMutation, decrementMutation, closeMutation } = useSecuredrawProgramAccount({
     account,
   })
 

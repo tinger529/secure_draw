@@ -2,12 +2,12 @@
  * Program IDL in camelCase format in order to be used in JS/TS.
  *
  * Note that this is only a type helper and is not the actual IDL. The original
- * IDL can be found at `target/idl/tmpdraw.json`.
+ * IDL can be found at `target/idl/securedraw.json`.
  */
-export type Tmpdraw = {
+export type Securedraw = {
   "address": "AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ",
   "metadata": {
-    "name": "tmpdraw",
+    "name": "securedraw",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"
@@ -32,7 +32,7 @@ export type Tmpdraw = {
           "signer": true
         },
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -52,7 +52,7 @@ export type Tmpdraw = {
       ],
       "accounts": [
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -72,7 +72,7 @@ export type Tmpdraw = {
       ],
       "accounts": [
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -97,7 +97,7 @@ export type Tmpdraw = {
           "signer": true
         },
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true,
           "signer": true
         },
@@ -122,7 +122,7 @@ export type Tmpdraw = {
       ],
       "accounts": [
         {
-          "name": "tmpdraw",
+          "name": "securedraw",
           "writable": true
         }
       ],
@@ -136,7 +136,7 @@ export type Tmpdraw = {
   ],
   "accounts": [
     {
-      "name": "tmpdraw",
+      "name": "securedraw",
       "discriminator": [
         255,
         176,
@@ -151,7 +151,7 @@ export type Tmpdraw = {
   ],
   "types": [
     {
-      "name": "tmpdraw",
+      "name": "securedraw",
       "type": {
         "kind": "struct",
         "fields": [
