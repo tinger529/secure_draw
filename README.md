@@ -15,20 +15,14 @@
 #### Clone the repo
 
 ```shell
-git clone <repo-url>
-cd <repo-name>
+git clone https://github.com/tinger529/secure_draw.git
+cd secure_draw
 ```
 
 #### Install Dependencies
 
 ```shell
-pnpm install
-```
-
-#### Start the web app
-
-```
-pnpm dev
+npm install
 ```
 
 ## Apps
@@ -39,7 +33,7 @@ This is a Solana program written in Rust using the Anchor framework.
 
 #### Commands
 
-You can use any normal anchor commands. Either move to the `anchor` directory and run the `anchor` command or prefix the command with `pnpm`, eg: `pnpm anchor`.
+You can use any normal anchor commands. Either move to the `anchor` directory and run the `anchor` command or prefix the command with `pnpm`, eg: `pnpm anchor`. Note: if pnpm doesn't work, please try `npm run`.
 
 #### Sync the program id:
 
@@ -87,8 +81,17 @@ Start the web app
 pnpm dev
 ```
 
+Or
+```shell
+npm run dev
+```
+
 Build the web app
 
 ```shell
 pnpm build
+```
+Or
+```shell
+npm run build
 ```

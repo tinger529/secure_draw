@@ -8,11 +8,14 @@ skip-lint = false
 [programs.localnet]
 securedraw = "AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ"
 
+[programs.devnet]
+securedraw = "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU"
+
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

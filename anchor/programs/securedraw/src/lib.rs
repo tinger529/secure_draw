@@ -1,8 +1,9 @@
 #![allow(clippy::result_large_err)]
 
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::hash::hash;
 
-declare_id!("AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ");
+declare_id!("7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU");
 
 #[program]
 pub mod securedraw {

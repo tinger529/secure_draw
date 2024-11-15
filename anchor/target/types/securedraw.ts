@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/securedraw.json`.
  */
 export type Securedraw = {
-  "address": "AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ",
+  "address": "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU",
   "metadata": {
     "name": "securedraw",
     "version": "0.1.0",
@@ -138,14 +138,14 @@ export type Securedraw = {
     {
       "name": "securedraw",
       "discriminator": [
-        255,
-        176,
-        4,
-        245,
-        188,
-        253,
-        124,
-        25
+        108,
+        115,
+        90,
+        24,
+        203,
+        249,
+        219,
+        252
       ]
     }
   ],
