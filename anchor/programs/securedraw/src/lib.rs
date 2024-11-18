@@ -19,7 +19,9 @@ pub mod securedraw {
   }
 
   pub fn increment(ctx: Context<Update>) -> Result<()> {
-    ctx.accounts.securedraw.count = ctx.accounts.securedraw.count.checked_add(1).unwrap();
+    let recent_hash = hash(&Clock::get().unwrap().unix_timestamp.to_le_bytes());
+    let random_number = recent_hash.as_ref()[0] as u8 % 100;
+    ctx.accounts.securedraw.count = random_number;
     Ok(())
   }
 
@@ -27,8 +29,9 @@ pub mod securedraw {
     Ok(())
   }
 
-  pub fn set(ctx: Context<Update>, value: u8) -> Result<()> {
-    ctx.accounts.securedraw.count = value.clone();
+  pub fn set(ctx: Context<Update>, nuser:Pubkey) -> Result<()> {
+    ctx.accounts.securedraw.nuser = nuser;
+    msg!("New user is set: {:?}", nuser);
     Ok(())
   }
 }
@@ -68,4 +71,5 @@ pub struct Update<'info> {
 #[derive(InitSpace)]
 pub struct Securedraw {
   count: u8,
+  nuser: Pubkey,
 }

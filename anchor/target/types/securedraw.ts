@@ -128,8 +128,8 @@ export type Securedraw = {
       ],
       "args": [
         {
-          "name": "value",
-          "type": "u8"
+          "name": "nuser",
+          "type": "pubkey"
         }
       ]
     }
@@ -158,6 +158,10 @@ export type Securedraw = {
           {
             "name": "count",
             "type": "u8"
+          },
+          {
+            "name": "nuser",
+            "type": "pubkey"
           }
         ]
       }

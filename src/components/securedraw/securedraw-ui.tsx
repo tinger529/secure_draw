@@ -66,6 +66,9 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
     <div className="card card-bordered border-base-300 border-4 text-neutral-content">
       <div className="card-body items-center text-center">
         <div className="space-y-6">
+          <h3 className="card-title justify-center text-3xl cursor-pointer" onClick={() => accountQuery.refetch()}>
+            New Event 
+          </h3>
           <h2 className="card-title justify-center text-3xl cursor-pointer" onClick={() => accountQuery.refetch()}>
             {count}
           </h2>
@@ -75,28 +78,34 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
               onClick={() => incrementMutation.mutateAsync()}
               disabled={incrementMutation.isPending}
             >
-              Increment
+              Random draw!
             </button>
             <button
               className="btn btn-xs lg:btn-md btn-outline"
               onClick={() => {
-                const value = window.prompt('Set value to:', count.toString() ?? '0')
-                if (!value || parseInt(value) === count || isNaN(parseInt(value))) {
+                const value = window.prompt('Add a new participant:')
+                if (!value) {
+                  alert('Public Key is required!');
                   return
                 }
-                return setMutation.mutateAsync(parseInt(value))
+                try {
+                  const publicKey = new PublicKey(value.trim());
+                  return setMutation.mutateAsync(publicKey);
+                } catch (error) {
+                  alert('Invalid Public Key format. Please try again.');
+                }
               }}
               disabled={setMutation.isPending}
             >
-              Set
+              Set participant
             </button>
-            <button
+            {/* <button
               className="btn btn-xs lg:btn-md btn-outline"
               onClick={() => decrementMutation.mutateAsync()}
               disabled={decrementMutation.isPending}
             >
               Decrement
-            </button>
+            </button> */}
           </div>
           <div className="text-center space-y-4">
             <p>

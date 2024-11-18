@@ -87,7 +87,7 @@ export function useSecuredrawProgramAccount({ account }: { account: PublicKey })
 
   const setMutation = useMutation({
     mutationKey: ['securedraw', 'set', { cluster, account }],
-    mutationFn: (value: number) => program.methods.set(value).accounts({ securedraw: account }).rpc(),
+    mutationFn: (value: PublicKey) => program.methods.set(value).accounts({ securedraw: account }).rpc(),
     onSuccess: (tx) => {
       transactionToast(tx)
       return accountQuery.refetch()

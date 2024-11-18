@@ -122,8 +122,8 @@
       ],
       "args": [
         {
-          "name": "value",
-          "type": "u8"
+          "name": "nuser",
+          "type": "pubkey"
         }
       ]
     }
@@ -152,6 +152,10 @@
           {
             "name": "count",
             "type": "u8"
+          },
+          {
+            "name": "nuser",
+            "type": "pubkey"
           }
         ]
       }

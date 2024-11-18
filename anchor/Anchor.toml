@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-securedraw = "AsjZ3kWAUSQRNt2pZVeJkywhZ6gpLpHZmJjduPmKZDZZ"
+securedraw = "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU"
 
 [programs.devnet]
 securedraw = "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU"
@@ -15,7 +15,7 @@ securedraw = "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
