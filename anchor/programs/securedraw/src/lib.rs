@@ -30,8 +30,11 @@ pub mod securedraw {
   }
 
   pub fn set(ctx: Context<Update>, nuser:Pubkey) -> Result<()> {
-    ctx.accounts.securedraw.nuser = nuser;
-    msg!("New user is set: {:?}", nuser);
+    ctx.accounts.securedraw.nuser.push(nuser);
+    // print the nuser
+    for i in ctx.accounts.securedraw.nuser.iter() {
+      msg!("nuser: {:?}", i);
+    }
     Ok(())
   }
 }
@@ -70,6 +73,7 @@ pub struct Update<'info> {
 #[account]
 #[derive(InitSpace)]
 pub struct Securedraw {
-  count: u8,
-  nuser: Pubkey,
+  pub count: u8,
+  #[max_len(10)]
+  pub nuser: Vec<Pubkey>,
 }

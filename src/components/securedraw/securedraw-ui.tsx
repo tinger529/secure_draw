@@ -1,7 +1,7 @@
 'use client'
 
 import { Keypair, PublicKey } from '@solana/web3.js'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { ellipsify } from '../ui/ui-layout'
 import { ExplorerLink } from '../cluster/cluster-ui'
 import { useSecuredrawProgram, useSecuredrawProgramAccount } from './securedraw-data-access'
@@ -38,7 +38,7 @@ export function SecuredrawList() {
       {accounts.isLoading ? (
         <span className="loading loading-spinner loading-lg"></span>
       ) : accounts.data?.length ? (
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-4 gap-4">
           {accounts.data?.map((account) => (
             <SecuredrawCard key={account.publicKey.toString()} account={account.publicKey} />
           ))}
@@ -59,6 +59,8 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
   })
 
   const count = useMemo(() => accountQuery.data?.count ?? 0, [accountQuery.data?.count])
+  const [isEditing, setIsEditing] = useState(false)
+  const [title, setTitle] = useState("New Event")
 
   return accountQuery.isLoading ? (
     <span className="loading loading-spinner loading-lg"></span>
@@ -66,9 +68,20 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
     <div className="card card-bordered border-base-300 border-4 text-neutral-content">
       <div className="card-body items-center text-center">
         <div className="space-y-6">
-          <h3 className="card-title justify-center text-3xl cursor-pointer" onClick={() => accountQuery.refetch()}>
-            New Event 
-          </h3>
+          { isEditing ? (
+            <input
+              type="text"
+              className="input input-bordered"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={() => setIsEditing(!isEditing)}
+            />
+          ) : (
+            <h3 className="card-title justify-center text-3xl cursor-pointer" onClick={() => setIsEditing(!isEditing)}>
+              {title}
+            </h3>
+          )
+          }
           <h2 className="card-title justify-center text-3xl cursor-pointer" onClick={() => accountQuery.refetch()}>
             {count}
           </h2>

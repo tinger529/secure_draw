@@ -161,7 +161,9 @@ export type Securedraw = {
           },
           {
             "name": "nuser",
-            "type": "pubkey"
+            "type": {
+              "vec": "pubkey"
+            }
           }
         ]
       }
