@@ -29,8 +29,8 @@ pub mod securedraw {
     Ok(())
   }
 
-  pub fn set(ctx: Context<Update>, nuser:Pubkey) -> Result<()> {
-    ctx.accounts.securedraw.nuser.push(nuser);
+  pub fn set(ctx: Context<Update>, nuser:Vec<Pubkey>) -> Result<()> {
+    ctx.accounts.securedraw.nuser = nuser;
     // print the nuser
     for i in ctx.accounts.securedraw.nuser.iter() {
       msg!("nuser: {:?}", i);

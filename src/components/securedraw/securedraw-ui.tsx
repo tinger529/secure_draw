@@ -61,6 +61,26 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
   const count = useMemo(() => accountQuery.data?.count ?? 0, [accountQuery.data?.count])
   const [isEditing, setIsEditing] = useState(false)
   const [title, setTitle] = useState("New Event")
+  const [inputValue, setInputValue] = useState('')
+
+  const handleSetParticipants = () => {
+    const keys = inputValue
+      .split('\n') // Split the input by newlines
+      .map(key => key.trim()) // Trim each key
+      .filter(key => key.length > 0); // Remove empty lines
+
+    if (keys.length === 0) {
+      alert('At least one Public Key is required!');
+      return;
+    }
+
+    try {
+      const publicKeys = keys.map(key => new PublicKey(key)); // Validate each key
+      return setMutation.mutateAsync(publicKeys); // Assuming `setMutation` can handle an array
+    } catch (error) {
+      alert('One or more Public Keys are invalid. Please check the format and try again.');
+    }
+  };
 
   return accountQuery.isLoading ? (
     <span className="loading loading-spinner loading-lg"></span>
@@ -85,32 +105,26 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
           <h2 className="card-title justify-center text-3xl cursor-pointer" onClick={() => accountQuery.refetch()}>
             {count}
           </h2>
+          <textarea
+            className="textarea textarea-bordered w-full"
+            placeholder="Enter the public key here..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          ></textarea>
           <div className="card-actions justify-around">
             <button
-              className="btn btn-xs lg:btn-md btn-outline"
+              className="btn btn-outline mt-1 px-2 py-1 text-sm"
               onClick={() => incrementMutation.mutateAsync()}
               disabled={incrementMutation.isPending}
             >
               Random draw!
             </button>
             <button
-              className="btn btn-xs lg:btn-md btn-outline"
-              onClick={() => {
-                const value = window.prompt('Add a new participant:')
-                if (!value) {
-                  alert('Public Key is required!');
-                  return
-                }
-                try {
-                  const publicKey = new PublicKey(value.trim());
-                  return setMutation.mutateAsync(publicKey);
-                } catch (error) {
-                  alert('Invalid Public Key format. Please try again.');
-                }
-              }}
-              disabled={setMutation.isPending}
+              className="btn btn-outline mt-1 px-2 py-1 text-sm"
+              onClick={handleSetParticipants}
+              disabled={setMutation.isPending} // Assuming `setMutation` is defined
             >
-              Set participant
+              Set participants
             </button>
             {/* <button
               className="btn btn-xs lg:btn-md btn-outline"

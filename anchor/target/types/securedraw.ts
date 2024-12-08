@@ -129,7 +129,9 @@ export type Securedraw = {
       "args": [
         {
           "name": "nuser",
-          "type": "pubkey"
+          "type": {
+            "vec": "pubkey"
+          }
         }
       ]
     }
