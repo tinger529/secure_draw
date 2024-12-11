@@ -1,0 +1,262 @@
+{
+  "address": "9QchLny69HfnhPGUKYLektXietC4rohx4H3y239iQCB5",
+  "metadata": {
+    "name": "secure_draw",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "generate_randomness",
+      "docs": [
+        "Retrieves the revealed random value from the given randomness account",
+        "and stores it in the user's state account.",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`: The program context",
+        "* `randomness_account`: The public key of the randomness account",
+        "to retrieve the revealed random value from",
+        "",
+        "# Errors",
+        "",
+        "* If the randomness account is not resolved, returns",
+        "`ErrorCode::RandomnessNotResolved`"
+      ],
+      "discriminator": [
+        184,
+        236,
+        174,
+        26,
+        122,
+        173,
+        183,
+        73
+      ],
+      "accounts": [
+        {
+          "name": "player_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114,
+                  83,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "signer": true
+        },
+        {
+          "name": "randomness_account_data"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "randomness_account",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "get_randomness",
+      "discriminator": [
+        73,
+        239,
+        90,
+        93,
+        139,
+        63,
+        19,
+        7
+      ],
+      "accounts": [
+        {
+          "name": "player_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114,
+                  83,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "signer": true
+        },
+        {
+          "name": "randomness_account_data"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "player_state",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  108,
+                  97,
+                  121,
+                  101,
+                  114,
+                  83,
+                  116,
+                  97,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "CallerState",
+      "discriminator": [
+        96,
+        194,
+        179,
+        127,
+        5,
+        58,
+        82,
+        60
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Unauthorized access attempt."
+    },
+    {
+      "code": 6001,
+      "name": "NotEnoughFundsToPlay"
+    },
+    {
+      "code": 6002,
+      "name": "RandomnessAlreadyRevealed"
+    },
+    {
+      "code": 6003,
+      "name": "RandomnessNotResolved"
+    },
+    {
+      "code": 6004,
+      "name": "RandomnessExpired"
+    }
+  ],
+  "types": [
+    {
+      "name": "CallerState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "allowed_user",
+            "type": "pubkey"
+          },
+          {
+            "name": "latest_result",
+            "type": "bool"
+          },
+          {
+            "name": "randomness_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "commit_slot",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}
