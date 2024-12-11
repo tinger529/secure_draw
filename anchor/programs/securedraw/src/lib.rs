@@ -2,6 +2,7 @@
 
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::hash::hash;
+use switchboard_on_demand::on_demand::accounts::pull_feed::PullFeedAccountData;
 
 declare_id!("7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU");
 
@@ -25,6 +26,22 @@ pub mod securedraw {
     Ok(())
   }
 
+  pub fn test<'a>(ctx: Context<Test>) -> Result<()> {
+    
+      // Feed account data
+      let feed_account = ctx.accounts.feed.data.borrow();
+      
+      // Docs at: https://switchboard-on-demand-rust-docs.web.app/on_demand/accounts/pull_feed/struct.PullFeedAccountData.html
+      let feed = PullFeedAccountData::parse(feed_account).unwrap();
+      
+      // Get the value, 
+      let price = feed.value();
+      
+      // Log the value
+      msg!("price: {:?}", price);
+      Ok(())
+  }
+
   pub fn initialize(_ctx: Context<InitializeSecuredraw>) -> Result<()> {
     Ok(())
   }
@@ -37,6 +54,7 @@ pub mod securedraw {
     }
     Ok(())
   }
+
 }
 
 #[derive(Accounts)]
@@ -68,6 +86,13 @@ pub struct CloseSecuredraw<'info> {
 pub struct Update<'info> {
   #[account(mut)]
   pub securedraw: Account<'info, Securedraw>,
+}
+
+// Include the feed account
+#[derive(Accounts)]
+pub struct Test<'info> {
+  /// CHECK: test
+  pub feed: AccountInfo<'info>,
 }
 
 #[account]

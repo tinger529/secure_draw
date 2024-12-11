@@ -62,6 +62,7 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
   const [isEditing, setIsEditing] = useState(false)
   const [title, setTitle] = useState("$6800 Area")
   const [inputValue, setInputValue] = useState('')
+  const [showPane, setShowPane] = useState(false);
 
   const handleSetParticipants = () => {
     const keys = inputValue
@@ -80,6 +81,10 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
     } catch (error) {
       alert('One or more Public Keys are invalid. Please check the format and try again.');
     }
+  };
+
+  const handleClose = () => {
+    setShowPane(false); // Close the pane
   };
 
   return accountQuery.isLoading ? (
@@ -158,11 +163,25 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
             </p> */}
             <button
               className="btn btn-xs btn-outline btn-secondary"
-              onClick={() => decrementMutation.mutateAsync()}
+              onClick={() => setShowPane(true)}
               disabled={decrementMutation.isPending}
             >
               Results
             </button>
+            {showPane && (
+              <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+                <div className="bg-white w-1/2 h-1/2 p-5 rounded shadow-lg flex flex-col justify-between items-center">
+                  <p>Results:</p>
+                  <p>{count}</p>
+                  <button
+                    className="btn btn-sm btn-primary mt-3"
+                    onClick={handleClose}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

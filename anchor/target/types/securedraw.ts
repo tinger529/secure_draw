@@ -139,6 +139,25 @@ export type Securedraw = {
           }
         }
       ]
+    },
+    {
+      "name": "test",
+      "discriminator": [
+        163,
+        36,
+        134,
+        53,
+        232,
+        223,
+        146,
+        222
+      ],
+      "accounts": [
+        {
+          "name": "feed"
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
