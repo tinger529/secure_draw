@@ -15,10 +15,10 @@ export function UiLayout({ children, links }: { children: ReactNode; links: { la
 
   return (
     <div className="h-full flex flex-col">
-      <div className="navbar bg-base-300 text-neutral-content flex-col md:flex-row space-y-2 md:space-y-0">
+      <div className="navbar bg-base-300 text-neutral-content flex-col md:flex-row space-y-4 md:space-y-0">
         <div className="flex-1">
           <Link className="btn btn-ghost normal-case text-xl" href="/">
-            <img className="h-4 md:h-6" alt="Logo" src="/logo.png" />
+            <img className="h-10 md:h-15" alt="Logo" src="/logo.png" />
           </Link>
           <ul className="menu menu-horizontal px-1 space-x-2">
             {links.map(({ label, path }) => (
@@ -129,15 +129,15 @@ export function AppHero({
   subtitle: ReactNode
 }) {
   return (
-    <div className="hero py-[72px]">
-      <div className="hero-content text-center">
+    <div className="hero py-[1px]">
+      <div className="hero-content">
         <div className="max-w-2xl">
           {typeof title === 'string' ? <h1 className="text-5xl font-bold">{title}</h1> : title}
           {typeof subtitle === 'string' ? <p className="py-6">{subtitle}</p> : subtitle}
           {children}
         </div>
-        <div className="max-w-2xl">
-          {<img src="/concert.png" alt="Concert" className="hero px-[10px] py-[20px]" />}
+        <div className="max-w-md">
+          {<img src="/concert.png" alt="Concert" className="hero px-5 py-5" />}
         </div>
       </div>
     </div>

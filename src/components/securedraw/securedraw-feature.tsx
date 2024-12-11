@@ -14,13 +14,21 @@ export default function SecuredrawFeature() {
   return publicKey ? (
     <div>
       <AppHero
-        title="Securedraw"
+        title="Securedraw: Concert"
         subtitle={
-          'Create a new account by clicking the "Create" button. The state of a account is stored on-chain and can be manipulated by calling the program\'s methods (increment, decrement, set, and close).'
+          <>
+          @TBW 2024<br /><br />
+          Create your secure and transparent concert ticket assignment system:<br /><br />
+          1. Connect Wallet: Click the button in the top-right corner to connect to your Solana wallet.<br /><br />
+          2. Create New Area: Click the button below and sign the contract to proceed.<br /><br />
+          3. Edit Card Titles (Optional): Click on a card title to modify it, if needed.<br /><br />
+          4. Set Participants: Enter the public keys of your participants and click "Set Participant."<br /><br />
+          5. Random Draw: Click "Random Draw" to generate the results.
+        </>
         }
       >
         <p className="mb-6">
-          <ExplorerLink path={`account/${programId}`} label={ellipsify(programId.toString())} />
+          {/* <ExplorerLink path={`account/${programId}`} label={ellipsify(programId.toString())} /> */}
         </p>
         <SecuredrawCreate />
       </AppHero>

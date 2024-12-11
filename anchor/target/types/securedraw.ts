@@ -76,7 +76,12 @@ export type Securedraw = {
           "writable": true
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "nuser",
+          "type": "u8"
+        }
+      ]
     },
     {
       "name": "initialize",

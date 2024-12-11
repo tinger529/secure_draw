@@ -78,7 +78,7 @@ export function useSecuredrawProgramAccount({ account }: { account: PublicKey })
 
   const incrementMutation = useMutation({
     mutationKey: ['securedraw', 'increment', { cluster, account }],
-    mutationFn: () => program.methods.increment().accounts({ securedraw: account }).rpc(),
+    mutationFn: (nuser) => program.methods.increment(nuser).accounts({ securedraw: account }).rpc(),
     onSuccess: (tx) => {
       transactionToast(tx)
       return accountQuery.refetch()

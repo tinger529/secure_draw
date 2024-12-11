@@ -18,9 +18,9 @@ pub mod securedraw {
     Ok(())
   }
 
-  pub fn increment(ctx: Context<Update>) -> Result<()> {
+  pub fn increment(ctx: Context<Update>, nuser:u8) -> Result<()> {
     let recent_hash = hash(&Clock::get().unwrap().unix_timestamp.to_le_bytes());
-    let random_number = recent_hash.as_ref()[0] as u8 % 100;
+    let random_number = recent_hash.as_ref()[0] as u8 % (ctx.accounts.securedraw.nuser.len() as u8);
     ctx.accounts.securedraw.count = random_number;
     Ok(())
   }

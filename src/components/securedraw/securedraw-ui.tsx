@@ -15,7 +15,7 @@ export function SecuredrawCreate() {
       onClick={() => initialize.mutateAsync(Keypair.generate())}
       disabled={initialize.isPending}
     >
-      Create {initialize.isPending && '...'}
+      Create a new area {initialize.isPending && '...'}
     </button>
   )
 }
@@ -60,7 +60,7 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
 
   const count = useMemo(() => accountQuery.data?.count ?? 0, [accountQuery.data?.count])
   const [isEditing, setIsEditing] = useState(false)
-  const [title, setTitle] = useState("New Event")
+  const [title, setTitle] = useState("$6800 Area")
   const [inputValue, setInputValue] = useState('')
 
   const handleSetParticipants = () => {
@@ -88,6 +88,18 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
     <div className="card card-bordered border-base-300 border-4 text-neutral-content">
       <div className="card-body items-center text-center">
         <div className="space-y-6">
+          <button
+                className="absolute top-2 right-2 btn btn-xs btn-secondary btn-outline"
+                onClick={() => {
+                  if (!window.confirm('Are you sure you want to close this account?')) {
+                    return
+                  }
+                  return closeMutation.mutateAsync()
+                }}
+                disabled={closeMutation.isPending}
+              >
+                ✕
+          </button>
           { isEditing ? (
             <input
               type="text"
@@ -102,9 +114,9 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
             </h3>
           )
           }
-          <h2 className="card-title justify-center text-3xl cursor-pointer" onClick={() => accountQuery.refetch()}>
+          {/* <h2 className="card-title justify-center text-3xl cursor-pointer" onClick={() => accountQuery.refetch()}>
             {count}
-          </h2>
+          </h2> */}
           <textarea
             className="textarea textarea-bordered w-full"
             placeholder="Enter the public key here..."
@@ -114,7 +126,13 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
           <div className="card-actions justify-around">
             <button
               className="btn btn-outline mt-1 px-2 py-1 text-sm"
-              onClick={() => incrementMutation.mutateAsync()}
+              onClick={() => {
+                const value = window.prompt('Number of winners:', count.toString() ?? '1')
+                if (!value || parseInt(value) === count || isNaN(parseInt(value))) {
+                  return
+                }
+                incrementMutation.mutateAsync(parseInt(value))
+              }}
               disabled={incrementMutation.isPending}
             >
               Random draw!
@@ -135,20 +153,15 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
             </button> */}
           </div>
           <div className="text-center space-y-4">
-            <p>
+            {/* <p>
               <ExplorerLink path={`account/${account}`} label={ellipsify(account.toString())} />
-            </p>
+            </p> */}
             <button
-              className="btn btn-xs btn-secondary btn-outline"
-              onClick={() => {
-                if (!window.confirm('Are you sure you want to close this account?')) {
-                  return
-                }
-                return closeMutation.mutateAsync()
-              }}
-              disabled={closeMutation.isPending}
+              className="btn btn-xs btn-outline btn-secondary"
+              onClick={() => decrementMutation.mutateAsync()}
+              disabled={decrementMutation.isPending}
             >
-              Close
+              Results
             </button>
           </div>
         </div>
