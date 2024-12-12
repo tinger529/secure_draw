@@ -4,7 +4,7 @@ use anchor_lang::prelude::*;
 use anchor_lang::solana_program::hash::hash;
 use switchboard_on_demand::on_demand::accounts::pull_feed::PullFeedAccountData;
 
-declare_id!("9QchLny69HfnhPGUKYLektXietC4rohx4H3y239iQCB5");
+declare_id!("7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU");
 
 #[program]
 pub mod securedraw {

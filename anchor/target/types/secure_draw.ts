@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/secure_draw.json`.
  */
 export type SecureDraw = {
-  "address": "9QchLny69HfnhPGUKYLektXietC4rohx4H3y239iQCB5",
+  "address": "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU",
   "metadata": {
     "name": "secureDraw",
     "version": "0.1.0",
@@ -13,6 +13,31 @@ export type SecureDraw = {
     "description": "Created with Anchor"
   },
   "instructions": [
+    {
+      "name": "close",
+      "discriminator": [
+        98,
+        165,
+        201,
+        177,
+        108,
+        65,
+        206,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "securedraw",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
     {
       "name": "generateRandomness",
       "docs": [
@@ -195,6 +220,33 @@ export type SecureDraw = {
         }
       ],
       "args": []
+    },
+    {
+      "name": "set",
+      "discriminator": [
+        198,
+        51,
+        53,
+        241,
+        116,
+        29,
+        126,
+        194
+      ],
+      "accounts": [
+        {
+          "name": "securedraw",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "nuser",
+          "type": {
+            "vec": "pubkey"
+          }
+        }
+      ]
     }
   ],
   "accounts": [
@@ -209,6 +261,19 @@ export type SecureDraw = {
         58,
         82,
         60
+      ]
+    },
+    {
+      "name": "securedraw",
+      "discriminator": [
+        108,
+        115,
+        90,
+        24,
+        203,
+        249,
+        219,
+        252
       ]
     }
   ],
@@ -260,6 +325,24 @@ export type SecureDraw = {
           {
             "name": "commitSlot",
             "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "securedraw",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "count",
+            "type": "u8"
+          },
+          {
+            "name": "nuser",
+            "type": {
+              "vec": "pubkey"
+            }
           }
         ]
       }

@@ -1,5 +1,5 @@
 {
-  "address": "9QchLny69HfnhPGUKYLektXietC4rohx4H3y239iQCB5",
+  "address": "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU",
   "metadata": {
     "name": "secure_draw",
     "version": "0.1.0",
@@ -7,6 +7,31 @@
     "description": "Created with Anchor"
   },
   "instructions": [
+    {
+      "name": "close",
+      "discriminator": [
+        98,
+        165,
+        201,
+        177,
+        108,
+        65,
+        206,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "securedraw",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
     {
       "name": "generate_randomness",
       "docs": [
@@ -189,6 +214,33 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "set",
+      "discriminator": [
+        198,
+        51,
+        53,
+        241,
+        116,
+        29,
+        126,
+        194
+      ],
+      "accounts": [
+        {
+          "name": "securedraw",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "nuser",
+          "type": {
+            "vec": "pubkey"
+          }
+        }
+      ]
     }
   ],
   "accounts": [
@@ -203,6 +255,19 @@
         58,
         82,
         60
+      ]
+    },
+    {
+      "name": "Securedraw",
+      "discriminator": [
+        108,
+        115,
+        90,
+        24,
+        203,
+        249,
+        219,
+        252
       ]
     }
   ],
@@ -254,6 +319,24 @@
           {
             "name": "commit_slot",
             "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Securedraw",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "count",
+            "type": "u8"
+          },
+          {
+            "name": "nuser",
+            "type": {
+              "vec": "pubkey"
+            }
           }
         ]
       }

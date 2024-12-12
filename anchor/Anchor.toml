@@ -6,10 +6,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-securedraw = "9QchLny69HfnhPGUKYLektXietC4rohx4H3y239iQCB5"
+securedraw = "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU"
 
 [programs.devnet]
-securedraw = "9QchLny69HfnhPGUKYLektXietC4rohx4H3y239iQCB5"
+securedraw = "7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU"
 
 [registry]
 url = "https://api.apr.dev"

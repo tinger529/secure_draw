@@ -3,7 +3,7 @@
 use anchor_lang::prelude::*;
 use switchboard_on_demand::accounts::RandomnessAccountData;
 
-declare_id!("9QchLny69HfnhPGUKYLektXietC4rohx4H3y239iQCB5");
+declare_id!("7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU");
 
 #[program]
 pub mod secure_draw {
@@ -79,6 +79,19 @@ pub mod secure_draw {
 
       Ok(())
   }
+
+  pub fn close(_ctx: Context<CloseSecuredraw>) -> Result<()> {
+    Ok(())
+  }
+
+  pub fn set(ctx: Context<Update>, nuser:Vec<Pubkey>) -> Result<()> {
+    ctx.accounts.securedraw.nuser = nuser;
+    // print the nuser
+    for i in ctx.accounts.securedraw.nuser.iter() {
+      msg!("nuser: {:?}", i);
+    }
+    Ok(())
+  }
 }
 
 // === Accounts ===
@@ -89,6 +102,14 @@ pub struct CallerState {
     randomness_account: Pubkey, // Reference to the Switchboard randomness account
     bump: u8,
     commit_slot: u64, // The slot at which the randomness was committed
+}
+
+#[account]
+#[derive(InitSpace)]
+pub struct Securedraw {
+  pub count: u8,
+  #[max_len(10)]
+  pub nuser: Vec<Pubkey>,
 }
 
 // === Instructions ===
@@ -115,6 +136,24 @@ pub struct GenerateRandomness<'info> {
     /// CHECK: The account's data is validated manually within the handler.
     pub randomness_account_data: AccountInfo<'info>,
     pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct CloseSecuredraw<'info> {
+  #[account(mut)]
+  pub payer: Signer<'info>,
+
+  #[account(
+  mut,
+  close = payer, // close account and return lamports to payer
+  )]
+  pub securedraw: Account<'info, Securedraw>,
+}
+
+#[derive(Accounts)]
+pub struct Update<'info> {
+  #[account(mut)]
+  pub securedraw: Account<'info, Securedraw>,
 }
 
 // === Errors ===
