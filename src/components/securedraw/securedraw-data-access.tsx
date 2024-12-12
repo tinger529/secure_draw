@@ -3,9 +3,9 @@ import * as anchor from "@coral-xyz/anchor";
 import {getSecuredrawProgram, getSecuredrawProgramId} from '@project/anchor'
 import {useConnection} from '@solana/wallet-adapter-react'
 import {Connection, Cluster, Keypair, PublicKey, Transaction, SystemProgram, VersionedTransaction,} from '@solana/web3.js'
-import {AnchorUtils, InstructionUtils, Queue, Randomness, SB_ON_DEMAND_PID, sleep} from "@switchboard-xyz/on-demand";
 import dotenv from "dotenv";
 import * as fs from "fs";
+import * as sb from "@switchboard-xyz/on-demand";
 import reader from "readline-sync";
 import {useMutation, useQuery} from '@tanstack/react-query'
 import {useMemo} from 'react'
@@ -50,6 +50,24 @@ export function useSecuredrawProgram() {
     getProgramAccount,
     initialize,
   }
+}
+
+export async function myAnchorProgram(
+  provider: anchor.Provider,
+  keypath: string
+): Promise<anchor.Program> {
+  const myProgramKeypair = await sb.AnchorUtils.initKeypairFromFile(keypath);
+  const pid = myProgramKeypair.publicKey;
+  const idl = (await anchor.Program.fetchIdl(pid, provider))!;
+  const program = new anchor.Program(idl, provider);
+  return program;
+}
+
+export async function initializeMyProgram( provider: anchor.Provider): Promise<anchor.Program> {
+  const myProgramPath = "anchor/target/deploy/sb_randomness-keypair.json";
+  const myProgram = await myAnchorProgram(provider, myProgramPath);
+  console.log("My program", myProgram.programId.toString());
+  return myProgram;
 }
 
 export function useSecuredrawProgramAccount({ account }: { account: PublicKey }) {
