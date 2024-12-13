@@ -1,6 +1,7 @@
 #![allow(clippy::result_large_err)]
 
 use anchor_lang::prelude::*;
+use anchor_lang::solana_program::hash::hash;
 use switchboard_on_demand::accounts::RandomnessAccountData;
 
 declare_id!("7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU");
@@ -9,7 +10,7 @@ declare_id!("7cKq9NnHaPboTM9tfsdKNheXwQa4fQkKEcbUCYbLy6VU");
 pub mod secure_draw {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+    pub fn init(ctx: Context<Initialize>) -> Result<()> {
         let player_state = &mut ctx.accounts.player_state;
         player_state.latest_result = false;
         player_state.randomness_account = Pubkey::default();
@@ -18,6 +19,41 @@ pub mod secure_draw {
 
         Ok(())
     }
+
+    pub fn initialize(_ctx: Context<InitializeSecuredraw>) -> Result<()> {
+      Ok(())
+    }
+
+    pub fn increment(ctx: Context<Update>, nuser: u8) -> Result<()> {
+      let recent_hash = hash(&Clock::get().unwrap().unix_timestamp.to_le_bytes());
+      let mut rng_seed = recent_hash.as_ref().to_vec();
+  
+      // Ensure unique selection of winners
+      let mut selected_indices = std::collections::HashSet::new();
+      let nuser_clone = ctx.accounts.securedraw.nuser.clone();
+
+      if nuser as usize > ctx.accounts.securedraw.nuser.len() {
+        return Err(ErrorCode::NotEnoughFundsToPlay.into());
+      }
+
+      let mut selected_users = Vec::new();
+  
+      while selected_indices.len() < nuser as usize {
+          let random_number = rng_seed[0] as usize % ctx.accounts.securedraw.nuser.len();
+          rng_seed.rotate_left(1);
+  
+          if selected_indices.insert(random_number) {
+              // ctx.accounts.securedraw.count.push(nuser_clone[random_number]);
+              selected_users.push(nuser_clone[random_number]);
+          }
+      }
+
+      ctx.accounts.securedraw.nuser = selected_users;
+  
+      Ok(())
+    }
+  
+  
 
     /// Retrieves the revealed random value from the given randomness account
     /// and stores it in the user's state account.
@@ -108,7 +144,7 @@ pub struct CallerState {
 #[derive(InitSpace)]
 pub struct Securedraw {
   pub count: u8,
-  #[max_len(10)]
+  #[max_len(50)]
   pub nuser: Vec<Pubkey>,
 }
 
@@ -124,6 +160,20 @@ pub struct Initialize<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
     pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct InitializeSecuredraw<'info> {
+  #[account(mut)]
+  pub payer: Signer<'info>,
+
+  #[account(
+  init,
+  space = 3216,
+  payer = payer
+  )]
+  pub securedraw: Account<'info, Securedraw>,
+  pub system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]

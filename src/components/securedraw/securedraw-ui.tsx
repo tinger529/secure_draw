@@ -4,11 +4,10 @@ import { Keypair, PublicKey } from '@solana/web3.js'
 import { useMemo, useState } from 'react'
 import { ellipsify } from '../ui/ui-layout'
 import { ExplorerLink } from '../cluster/cluster-ui'
-import { useSecuredrawProgram, useSecuredrawProgramAccount } from './securedraw-data-access'
+import { useSecuredrawProgram, useSecuredrawProgramAccount, getRandom} from './securedraw-data-access'
 
-export function SecuredrawCreate() {
+export async function SecuredrawCreate() {
   const { initialize } = useSecuredrawProgram()
-
   return (
     <button
       className="btn btn-xs lg:btn-md btn-primary"
@@ -58,7 +57,9 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
     account,
   })
 
-  const count = useMemo(() => accountQuery.data?.count ?? 0, [accountQuery.data?.count])
+  const count = useMemo(() => {
+    return accountQuery.data?.nuser?.map((key) => key.toString()) ?? [];
+  }, [accountQuery.data?.nuser]);
   const [isEditing, setIsEditing] = useState(false)
   const [title, setTitle] = useState("$6800 Area")
   const [inputValue, setInputValue] = useState('')
@@ -132,11 +133,19 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
             <button
               className="btn btn-outline mt-1 px-2 py-1 text-sm"
               onClick={() => {
-                const value = window.prompt('Number of winners:', count.toString() ?? '1')
-                if (!value || parseInt(value) === count || isNaN(parseInt(value))) {
+                const value = window.prompt('Number of winners:', '0' ?? '1')
+                console.log(value)
+                if (!value || isNaN(parseInt(value))) {
                   return
                 }
+                // try{
+                // getRandom()
+                // }
+                // catch(e){
+                //   console.log(e)
+                // }
                 incrementMutation.mutateAsync(parseInt(value))
+                console.log(value)
               }}
               disabled={incrementMutation.isPending}
             >
@@ -172,7 +181,9 @@ function SecuredrawCard({ account }: { account: PublicKey }) {
               <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
                 <div className="bg-white w-1/2 h-1/2 p-5 rounded shadow-lg flex flex-col justify-between items-center">
                   <p>Results:</p>
-                  <p>{count}</p>
+                  <p>{count.map((key, index) => (
+        <li key={index}>{key}</li>
+      ))}</p>
                   <button
                     className="btn btn-sm btn-primary mt-3"
                     onClick={handleClose}

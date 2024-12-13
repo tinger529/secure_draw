@@ -169,16 +169,41 @@ export type SecureDraw = {
       "args": []
     },
     {
-      "name": "initialize",
+      "name": "increment",
       "discriminator": [
-        175,
-        175,
-        109,
-        31,
-        13,
-        152,
-        155,
-        237
+        11,
+        18,
+        104,
+        9,
+        104,
+        174,
+        59,
+        33
+      ],
+      "accounts": [
+        {
+          "name": "securedraw",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "nuser",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "init",
+      "discriminator": [
+        220,
+        59,
+        207,
+        236,
+        108,
+        250,
+        47,
+        100
       ],
       "accounts": [
         {
@@ -211,6 +236,36 @@ export type SecureDraw = {
         },
         {
           "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "securedraw",
           "writable": true,
           "signer": true
         },
