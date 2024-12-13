@@ -19,15 +19,19 @@
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/web3.js": "^1.95.1",
+    "@switchboard-xyz/on-demand": "^1.2.54",
     "@tabler/icons-react": "^3.11.0",
     "@tanstack/react-query": "^5.51.11",
     "@tanstack/react-query-next-experimental": "^5.51.11",
     "daisyui": "^4.12.10",
+    "dotenv": "^16.4.7",
     "jotai": "^2.9.1",
-    "next": "14.2.5",
+    "next": "^14.2.20",
     "react": "^18",
     "react-dom": "^18",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "readline-sync": "^1.4.10",
+    "template-next-tailwind-counter": "file:"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.0",
